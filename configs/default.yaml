@@ -1,0 +1,59 @@
+random_seed: 42
+
+matching:
+  mode: automatic  # automatic | classical | deep | hybrid
+  ratio_test: 0.75
+  mutual_nn: true
+  max_features: 8000
+  use_rootsift: true
+  flann: false
+
+geometry:
+  models: [similarity, affine, homography]
+  ransac_threshold: 3.0
+  ransac_confidence: 0.999
+  max_iters: 2000
+
+uniform:
+  grid: [8, 8]
+  min_separation_px: 8
+  max_per_cell: 8
+
+refinement:
+  patch_size: 21
+  search_radius: 3
+  ncc_min: 0.4
+
+quality:
+  min_inliers: 12
+  min_inlier_ratio: 0.25
+  max_rmse_px: 4.0
+  min_coverage: 0.35
+  weights:
+    inlier_ratio: 0.22
+    rmse: 0.18
+    median_error: 0.10
+    coverage: 0.16
+    ncc: 0.14
+    descriptor: 0.08
+    stability: 0.06
+    subpixel: 0.06
+
+iirs:
+  pca_components: 3
+  pca_min: 2
+  pca_max: 10
+
+scale:
+  pyramid_levels: 4
+  gsd_init: true
+
+sun:
+  large_azimuth_deg: 40
+  large_elevation_deg: 20
+
+deep:
+  loftr_checkpoint: checkpoints/loftr_outdoor.ckpt
+  superpoint_checkpoint: checkpoints/superpoint_v1.pth
+  superglue_checkpoint: checkpoints/superglue_outdoor.pth
+  auto_download: false

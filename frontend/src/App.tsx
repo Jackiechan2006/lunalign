@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import AppShell from "./layouts/AppShell";
+import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 import DataPage from "./pages/DataPage";
 import Registration from "./pages/Registration";
@@ -15,8 +16,9 @@ import Demo from "./pages/Demo";
 export default function App() {
   return (
     <Routes>
+      <Route path="/" element={<Landing />} />
       <Route element={<AppShell />}>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/workspace" element={<Dashboard />} />
         <Route path="/data" element={<DataPage />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/correspondences" element={<Correspondences />} />
@@ -27,8 +29,8 @@ export default function App() {
         <Route path="/reports" element={<Reports />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/demo" element={<Demo />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }

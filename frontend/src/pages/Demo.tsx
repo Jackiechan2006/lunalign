@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiPost, saveSession } from "../api/client";
-import { ActionButton, PageHeader, Panel, StatusBadge } from "../components/ui";
+import { PageHeader, Panel, StatusBadge } from "../components/ui";
 
 export default function Demo() {
   const nav = useNavigate();
@@ -24,9 +24,7 @@ export default function Demo() {
         <Panel>
           <div className="lunar-section-label !mt-0">DEMO CONTROL</div>
           <p className="mt-4 text-sm leading-7 text-slate-400">Run the benchmark pipeline, then step through the scientific story and open the generated correspondence evidence.</p>
-          <div className="mt-6"><ActionButton disabled={busy} onClick={undefined as never}>{busy ? "RUNNING PIPELINE…" : "PLAY DEMONSTRATION"}</ActionButton></div>
-          <button onClick={start} disabled={busy} className="absolute h-0 w-0 overflow-hidden" aria-label="Start demonstration" />
-          {!busy && !payload && <button onClick={start} className="mt-3 border border-line px-4 py-2 text-[9px] tracking-widest text-slate-400 hover:text-white">RUN DEMO PIPELINE</button>}
+          <button onClick={start} disabled={busy} className="lunar-button lunar-button-primary mt-6">{busy ? "RUNNING PIPELINE…" : "PLAY DEMONSTRATION"}</button>
           {err && <pre className="text-danger text-sm mt-4 whitespace-pre-wrap">{err}</pre>}
         </Panel>
         <Panel>

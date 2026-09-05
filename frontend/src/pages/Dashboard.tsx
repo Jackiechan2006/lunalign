@@ -26,30 +26,40 @@ export default function Dashboard() {
       <div className="hero-grid luna-story-grid" aria-hidden="true" />
 
       <header className="landing-nav luna-landing-nav luna-journey-nav">
-        <Link className="luna-wordmark" to="/" aria-label="LunaAlign home">
-          <span className="luna-mark"><span /></span>
+        <Link className="reference-brand" to="/" aria-label="LunaAlign home">
+          <span className="reference-brand-mark"><i /><b /></span>
           <span><strong>LUNAALIGN</strong><small>LUNAR CORRESPONDENCE SYSTEM</small></span>
         </Link>
-        <nav className="luna-nav-meta" aria-label="Landing navigation">
-          <span><i /> MISSION SYSTEM ONLINE</span>
-          <a href="#technology">TECHNOLOGY <b>↓</b></a>
-          <a href="#validation">PIPELINE <b>↓</b></a>
+        <nav className="reference-nav-links" aria-label="Landing navigation">
+          <a href="#technology">RIGHT ALIGNED</a>
+          <a href="#validation">BADGES</a>
+          <a href="#about">+ REGISTER</a>
         </nav>
+        <div className="reference-status"><i /> MISSION SYSTEM ONLINE</div>
       </header>
 
-      <section id="top" className="hero-section luna-story-panel luna-story-hero">
-        <div className="luna-story-copy">
-          <div className="luna-kicker"><span>CHANDRAYAAN-2</span><span>IMAGE INTELLIGENCE</span></div>
-          <h1>See the lunar surface<br /><em>as one.</em></h1>
-          <p>
-            Multi-modal, sun-angle and scale-invariant lunar image correspondence for rigorous
-            planetary analysis across OHRC, TMC-2 and IIRS observations.
-          </p>
-          <a className="luna-story-next" href="#technology">EXPLORE THE MISSION <span>↓</span></a>
+      <section id="top" className="hero-section luna-story-panel luna-story-hero reference-hero">
+        <div className="reference-hero-copy">
+          <div className="reference-kicker">CHANDRAYAAN-2 · IMAGE INTELLIGENCE</div>
+          <h1>LUNAR ALIGNMENT<br /><em>ACROSS LIGHT</em></h1>
+          <p>Multi-modal, sun-angle and scale-invariant lunar image correspondence for rigorous planetary analysis.</p>
+          <div className="reference-hero-actions">
+            <a href="#technology" className="reference-primary-cta">EXPLORE TECH <span>→</span></a>
+            <a href="#validation" className="reference-secondary-cta">WATCH PIPELINE ↗</a>
+          </div>
         </div>
-        <div className="luna-hero-readout luna-journey-readout">
-          <span>12.42° S</span><span>46.18° E</span><span>ALT 100 KM</span>
+
+        <div className="reference-moon-overlay" aria-hidden="true">
+          <div className="reference-reticle"><span /><i /></div>
+          <div className="reference-orbit reference-orbit-a" />
+          <div className="reference-orbit reference-orbit-b" />
+          <div className="reference-metric reference-metric-a"><strong>52</strong><small>INLIER</small></div>
+          <div className="reference-metric reference-metric-b"><strong>28</strong><small>RMSE</small></div>
+          <div className="reference-metric reference-metric-c"><strong>91%</strong><small>VALID</small></div>
+          <div className="reference-axis-label">LUNA / 01</div>
         </div>
+
+        <div className="reference-scroll-cue"><span /> SCROLL TO EXPLORE</div>
       </section>
 
       <section id="technology" className="prelaunch-sequence luna-story-panel luna-story-problem">

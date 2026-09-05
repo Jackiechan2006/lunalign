@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 import "./workspace-polish.css";
+import "./landing-journey.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

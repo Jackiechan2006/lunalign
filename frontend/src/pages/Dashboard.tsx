@@ -18,25 +18,26 @@ const evidence = [
 
 export default function Dashboard() {
   return (
-    <div className="luna-landing luna-journey">
-      <div className="luna-story-stage" aria-hidden="true">
+    <main className="landing-shell luna-landing luna-journey">
+      <div className="hero-backdrop luna-story-stage" aria-hidden="true">
         <LunarHeroScene />
         <div className="luna-story-vignette" />
-        <div className="luna-story-grid" />
       </div>
+      <div className="hero-grid luna-story-grid" aria-hidden="true" />
 
-      <header className="luna-landing-nav luna-journey-nav">
+      <header className="landing-nav luna-landing-nav luna-journey-nav">
         <Link className="luna-wordmark" to="/" aria-label="LunaAlign home">
           <span className="luna-mark"><span /></span>
           <span><strong>LUNAALIGN</strong><small>LUNAR CORRESPONDENCE SYSTEM</small></span>
         </Link>
-        <div className="luna-nav-meta">
+        <nav className="luna-nav-meta" aria-label="Landing navigation">
           <span><i /> MISSION SYSTEM ONLINE</span>
-          <a href="#pipeline">VIEW PIPELINE <b>↓</b></a>
-        </div>
+          <a href="#technology">TECHNOLOGY <b>↓</b></a>
+          <a href="#validation">PIPELINE <b>↓</b></a>
+        </nav>
       </header>
 
-      <section className="luna-story-panel luna-story-hero">
+      <section id="top" className="hero-section luna-story-panel luna-story-hero">
         <div className="luna-story-copy">
           <div className="luna-kicker"><span>CHANDRAYAAN-2</span><span>IMAGE INTELLIGENCE</span></div>
           <h1>See the lunar surface<br /><em>as one.</em></h1>
@@ -44,16 +45,16 @@ export default function Dashboard() {
             Multi-modal, sun-angle and scale-invariant lunar image correspondence for rigorous
             planetary analysis across OHRC, TMC-2 and IIRS observations.
           </p>
-          <a className="luna-story-next" href="#problem">EXPLORE THE MISSION <span>↓</span></a>
+          <a className="luna-story-next" href="#technology">EXPLORE THE MISSION <span>↓</span></a>
         </div>
         <div className="luna-hero-readout luna-journey-readout">
           <span>12.42° S</span><span>46.18° E</span><span>ALT 100 KM</span>
         </div>
       </section>
 
-      <section className="luna-story-panel luna-story-problem" id="problem">
+      <section id="technology" className="prelaunch-sequence luna-story-panel luna-story-problem">
         <div className="luna-story-copy luna-story-copy-right">
-          <span className="luna-story-index">01 / PROBLEM</span>
+          <span className="luna-story-index">01 / TECHNOLOGY</span>
           <h2>Different sensors.<br />Different light.<br /><em>One lunar surface.</em></h2>
           <p>
             Lunar observations rarely arrive in the same scale, modality or illumination. LunaAlign
@@ -68,10 +69,10 @@ export default function Dashboard() {
         </div>
       </section>
 
-      <section className="luna-story-panel luna-story-pipeline" id="pipeline">
+      <section id="validation" className="pipeline-ribbon enhanced-ribbon luna-story-panel luna-story-pipeline">
         <div className="luna-story-wide">
           <div className="luna-story-heading">
-            <span className="luna-story-index">02 / PIPELINE</span>
+            <span className="luna-story-index">02 / VALIDATION PIPELINE</span>
             <h2>From observation<br />to correspondence.</h2>
             <p>Every stage remains inspectable, reproducible and evidence-first.</p>
           </div>
@@ -86,12 +87,8 @@ export default function Dashboard() {
               </article>
             ))}
           </div>
-        </div>
-      </section>
 
-      <section className="luna-story-panel luna-story-evidence">
-        <div className="luna-story-wide">
-          <div className="luna-story-heading luna-story-heading-split">
+          <div className="luna-story-heading luna-story-heading-split luna-evidence-heading">
             <div>
               <span className="luna-story-index">03 / SCIENTIFIC EVIDENCE</span>
               <h2>Do not just align.<br /><em>Explain the alignment.</em></h2>
@@ -115,7 +112,7 @@ export default function Dashboard() {
         </div>
       </section>
 
-      <section className="luna-story-panel luna-story-ready">
+      <section id="about" className="final-cta luna-story-panel luna-story-ready">
         <div className="luna-ready-orbit" aria-hidden="true"><span /><i /></div>
         <div className="luna-ready-content">
           <span className="luna-story-index">04 / MISSION WORKSPACE</span>
@@ -130,6 +127,11 @@ export default function Dashboard() {
           </div>
         </div>
       </section>
-    </div>
+
+      <footer className="luna-reference-footer">
+        <span>LUNAALIGN · CHANDRAYAAN-2 LUNAR CORRESPONDENCE</span>
+        <a href="#top">BACK TO TOP ↑</a>
+      </footer>
+    </main>
   );
 }

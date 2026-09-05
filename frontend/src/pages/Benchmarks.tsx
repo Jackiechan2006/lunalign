@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { apiPost } from "../api/client";
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { ActionButton, PageHeader, Panel, StatusBadge } from "../components/ui";
 
 export default function Benchmarks() {
   const [data, setData] = useState<any>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
+
   async function run() {
     setBusy(true);
     setErr(null);
@@ -17,64 +19,83 @@ export default function Benchmarks() {
       setBusy(false);
     }
   }
+
   return (
     <div className="lunar-page">
-      <h1 className="text-3xl">Benchmarks</h1>
-      <p className="text-slate-400 mt-2 max-w-3xl">
-        SYNTHETIC BENCHMARK only unless you supply mission products. LoFTR and SuperPoint+SuperGlue appear when local
-        checkpoints exist; they are never downloaded.
-      </p>
-      <button onClick={run} disabled={busy} className="mt-4 px-4 py-2 bg-signal text-void rounded">
-        {busy ? "Running…" : "Run synthetic scale robustness suite"}
-      </button>
-      {err && <pre className="text-danger text-sm mt-3">{err}</pre>}
+      <PageHeader
+        eyebrow="06 · VALIDATION"
+        title="Benchmark analysis"
+        description="Synthetic robustness evaluation remains clearly separated from real mission-data validation. Optional deep models only appear when local checkpoints already exist."
+        action={<StatusBadge tone={busy ? "violet" : "signal"}>{busy ? "RUNNING" : "READY"}</StatusBadge>}
+      />
+
+      <div className="mt-7 flex flex-wrap items-center justify-between gap-4">
+        <div className="max-w-2xl text-sm text-slate-500">Measure scale robustness, inlier quality, geometric error, spatial coverage, NCC and runtime without mixing synthetic results with mission claims.</div>
+        <ActionButton onClick={run as any} disabled={busy}>{busy ? "RUNNING SUITE…" : "RUN SYNTHETIC SUITE"}</ActionButton>
+      </div>
+
+      {err && <pre className="mt-4 border border-line p-4 text-sm text-danger whitespace-pre-wrap">{err}</pre>}
+
       {data && (
-        <>
-          <p className="mt-4 text-warn text-sm">{data.disclaimer}</p>
-          <div className="h-64 mt-6">
-            <ResponsiveContainer>
-              <BarChart data={data.rows || []}>
-                <CartesianGrid stroke="#243044" />
-                <XAxis dataKey="experiment" stroke="#9aa" hide />
-                <YAxis stroke="#9aa" />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="inlier_ratio" fill="#7fd1c7" name="Inlier ratio" />
-                <Bar dataKey="quality_score" fill="#c9b896" name="Quality score" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-          <div className="overflow-auto mt-4 border border-line">
-            <table className="text-xs w-full">
-              <thead className="bg-panel">
-                <tr>
-                  {["experiment", "inliers", "inlier_ratio", "rmse", "spatial_coverage", "ncc", "runtime_s", "quality_score"].map((h) => (
-                    <th key={h} className="p-2 text-left">{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {(data.rows || []).map((r: any) => (
-                  <tr key={r.experiment} className="border-t border-line">
-                    <td className="p-2">{r.experiment}</td>
-                    <td className="p-2">{r.inliers}</td>
-                    <td className="p-2">{r.inlier_ratio?.toFixed?.(3)}</td>
-                    <td className="p-2">{r.rmse?.toFixed?.(3)}</td>
-                    <td className="p-2">{r.spatial_coverage?.toFixed?.(3)}</td>
-                    <td className="p-2">{r.ncc?.toFixed?.(3)}</td>
-                    <td className="p-2">{r.runtime_s?.toFixed?.(2)}</td>
-                    <td className="p-2">{r.quality_score}</td>
+        <div className="mt-8 space-y-5">
+          <Panel>
+            <div className="lunar-section-label !mt-0">RESULT SUMMARY</div>
+            <p className="mt-3 text-sm text-warn">{data.disclaimer}</p>
+            <div className="mt-6 h-72">
+              <ResponsiveContainer>
+                <BarChart data={data.rows || []}>
+                  <CartesianGrid stroke="rgba(255,255,255,.08)" vertical={false} />
+                  <XAxis dataKey="experiment" stroke="#6f7976" hide />
+                  <YAxis stroke="#6f7976" />
+                  <Tooltip contentStyle={{ background: "#0d1112", border: "1px solid #2a3130", fontSize: 12 }} />
+                  <Legend />
+                  <Bar dataKey="inlier_ratio" fill="#a9bdb7" name="Inlier ratio" />
+                  <Bar dataKey="quality_score" fill="#747f7b" name="Quality score" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </Panel>
+
+          <Panel className="overflow-hidden !p-0">
+            <div className="p-5 border-b border-line">
+              <div className="lunar-section-label !mt-0">EXPERIMENT TABLE</div>
+            </div>
+            <div className="overflow-auto">
+              <table className="text-xs w-full min-w-[860px]">
+                <thead className="bg-black/20 text-slate-500">
+                  <tr>
+                    {["experiment", "inliers", "inlier_ratio", "rmse", "spatial_coverage", "ncc", "runtime_s", "quality_score"].map((h) => (
+                      <th key={h} className="p-3 text-left font-medium tracking-wide">{h}</th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <ul className="text-slate-500 text-sm mt-4 list-disc ml-5">
-            {(data.missing || []).map((m: string) => (
-              <li key={m}>{m}</li>
-            ))}
-          </ul>
-        </>
+                </thead>
+                <tbody>
+                  {(data.rows || []).map((r: any) => (
+                    <tr key={r.experiment} className="border-t border-line hover:bg-white/[.025]">
+                      <td className="p-3 text-slate-200">{r.experiment}</td>
+                      <td className="p-3">{r.inliers}</td>
+                      <td className="p-3">{r.inlier_ratio?.toFixed?.(3)}</td>
+                      <td className="p-3">{r.rmse?.toFixed?.(3)}</td>
+                      <td className="p-3">{r.spatial_coverage?.toFixed?.(3)}</td>
+                      <td className="p-3">{r.ncc?.toFixed?.(3)}</td>
+                      <td className="p-3">{r.runtime_s?.toFixed?.(2)}</td>
+                      <td className="p-3">{r.quality_score}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Panel>
+
+          {(data.missing || []).length > 0 && (
+            <Panel>
+              <div className="lunar-section-label !mt-0">NOT AVAILABLE IN THIS RUN</div>
+              <ul className="mt-4 grid gap-2 text-sm text-slate-500 md:grid-cols-2">
+                {(data.missing || []).map((m: string) => <li key={m}>— {m}</li>)}
+              </ul>
+            </Panel>
+          )}
+        </div>
       )}
     </div>
   );

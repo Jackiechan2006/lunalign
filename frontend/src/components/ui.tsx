@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 
 type PageHeaderProps = {
   eyebrow: string;
@@ -28,9 +28,14 @@ export function StatusBadge({ children, tone = "signal" }: { children: ReactNode
   return <span className={`lunar-status lunar-status-${tone}`}>{children}</span>;
 }
 
-export function ActionButton({ children, variant = "primary", type = "button", disabled = false }: { children: ReactNode; variant?: "primary" | "secondary"; type?: "button" | "submit"; disabled?: boolean }) {
+type ActionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  children: ReactNode;
+  variant?: "primary" | "secondary";
+};
+
+export function ActionButton({ children, variant = "primary", className = "", ...props }: ActionButtonProps) {
   return (
-    <button type={type} disabled={disabled} className={`lunar-button lunar-button-${variant}`}>
+    <button {...props} className={`lunar-button lunar-button-${variant} ${className}`}>
       {children}
     </button>
   );

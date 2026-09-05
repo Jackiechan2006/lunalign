@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { fileUrl, loadSession } from "../api/client";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { PageHeader, Panel, StatusBadge } from "../components/ui";
@@ -14,14 +14,11 @@ export default function Correspondences() {
 
   const q = result.quality || {};
   const g = result.geometry || {};
-  const chart = useMemo(
-    () => [
-      { k: "Inlier ratio", v: (g.inlier_ratio || 0) * 100 },
-      { k: "Coverage", v: (result.uniform?.coverage || 0) * 100 },
-      { k: "Quality", v: (q.score || 0) * 100 },
-    ],
-    [result]
-  );
+  const chart = [
+    { k: "Inlier ratio", v: (g.inlier_ratio || 0) * 100 },
+    { k: "Coverage", v: (result.uniform?.coverage || 0) * 100 },
+    { k: "Quality", v: (q.score || 0) * 100 },
+  ];
 
   return (
     <div className="lunar-page">
